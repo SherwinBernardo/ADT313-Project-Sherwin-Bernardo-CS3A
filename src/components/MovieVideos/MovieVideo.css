@@ -1,0 +1,82 @@
+.Main-video-container{
+    padding: 10px;
+    color: rgb(0, 0, 0);
+}
+.Current-Replace{
+    padding: 10px;
+}
+.Current-Main-Container{
+    color:#00ffaa ;
+
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.Replace-Main-Container{
+    color: #00ffaa;
+    background: -webkit-linear-gradient(#023624, #026240);
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.Videos-container{
+
+padding: 10px;
+}
+
+.Video-preview{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+
+}
+.Replace-video-list{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.heck {
+    background-color: #02583a;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 15px;
+    max-height: 600px;
+    overflow-y: auto;
+    border-radius: 8px;
+}
+.what{
+    color: #b5ffe6;
+    outline: 2px solid #6bb79d;
+    border-radius: 10px;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+    padding: 10px;
+    height: auto;
+    width: 300px;
+    background-color: transparent;
+    margin-bottom: 10px;
+}
+.the{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    width: auto;
+}
+.Select-Button{
+    margin: 5px;
+    padding: 15px;
+    font-size: 1.2rem;
+    font-weight:600;
+    border: none;
+    border-radius: 5px;
+    background-color: #319b78;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}

@@ -1,0 +1,18 @@
+.genre-div{
+    font-weight: bold;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    background-color: #a3ffdd00;
+    outline: 2px solid #b6ffe4;
+    border-radius: 5px;
+    color: #a9ffdf;
+}.Genres{
+    color: #a8a8a8;
+    margin-left: 10px;
+    align-items: center;
+    gap:15px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 15px;
+}

@@ -1,0 +1,33 @@
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 5px;
+  height: 350px;
+  width: 200px;
+  color:aliceblue;
+  border: 20px solid #002519;
+  background-color: #002519;
+}
+.card img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 150px;
+    object-fit: fill ;
+}
+
+.card:hover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(255, 255, 255);
+  border: 20px solid #298667;
+  background-color: #298667;
+}
+.title{
+  font-size: .8rem;
+  margin-top: 20px;
+  font-weight: bold;
+}

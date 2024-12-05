@@ -1,0 +1,76 @@
+.Main {
+  display: flex;
+  overflow: hidden;
+  max-height: 100vh;
+}
+.Main .container {
+  background: -webkit-linear-gradient(#01271a, #000000);
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+.Main .container .outlet {
+  color: red;
+  flex-grow: 3;
+  padding: 1rem;
+  overflow-y: auto;
+}
+.Main .container .navigation {
+  padding: 10px;  
+  display: flex;
+  align-items: center;
+  height: 100px;
+  background-color: #0432239d;
+  width: 100%;
+}
+.Main .container .navigation ul {
+  list-style: none;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.Main .container .navigation ul li {
+  padding: 0px 60px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #5bdbb0;
+  font-weight: bold;
+}
+.Main .container .navigation ul li a {
+  text-decoration: none;
+  color: #95f8d7;
+}
+.Main .container .navigation ul li.active a,
+.Main .container .navigation ul li:hover a {
+  text-decoration: none;
+  color: white;
+}
+.Main .container .navigation ul li.active,
+.Main .container .navigation ul li:hover {
+  cursor: pointer;
+  background: #68ffcd20;
+}
+.Main .container .navigation ul li a {
+  text-decoration: none;
+}
+
+.Main .container .navigation ul li.logout,
+.Main .container .navigation ul li.login {
+  justify-self: end;
+}
+.site-title{
+    background: -webkit-linear-gradient(#08a66f, #001c12);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+  font-weight: 700;
+  padding: 5px;
+  margin: 10px;
+  border-radius: 10px;
+  font-size: 50px;
+}

@@ -1,0 +1,58 @@
+.banner{
+    color:#ffffff;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    height: auto;
+}
+.Movie-poster{
+    height: 500px;
+    width: auto;
+    background-color: #0c553a;
+    border-radius: 5px;
+    padding: 10px;
+
+}
+
+.Movie-info{
+
+    padding: 15px;
+    border-radius: 10px;
+    background-color: transparent;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+}
+.Movie-info-2nd{
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: transparent;
+    height: auto;
+}
+.Movie-title{
+    margin-bottom: 20px;
+    color:white;
+    display: flex;
+}
+.Overview{
+    margin-left: 10px;
+    font-size: large;
+    margin-bottom: 20px;
+    color:#ffffff;
+}
+
+.Popularity small,
+.Vote-Average small,
+.Release-date small{
+    color: #a8a8a8;
+    margin-right: 10px;
+}
+
+.Popularity ,
+.Vote-Average,
+.Release-date{
+    margin-left: 10px;
+    margin-bottom: 10px;
+}

@@ -1,0 +1,202 @@
+
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  color: #000000;
+  margin: 20px 0;
+}
+.div-title-page{
+  border-radius: 5px;
+  padding: 1px;
+  width:100%;
+  background-color: transparent;
+
+}
+
+.title-page{
+  font-size:2.5rem;
+  color: #00c388;
+}
+
+.form-search-container {
+  width: 90%;
+  max-width: 800px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-search-container-btn {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.form-search-container-btn input {
+  flex: 1;
+  width: 50rem;
+  height: 3rem;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #7fffd4;
+  border-radius: 10px;
+  outline: none;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.form-search-container-btn input::placeholder {
+  color: #888;
+}
+
+.form-search-container-btn button {
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #319b78;
+  color: #000000;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-search-container-btn button:hover {
+  background-color: #157456;
+}
+
+
+.form-searched-movie {
+  width: 150vh;
+  max-height: auto;
+  overflow-y: auto;
+  background-color: #9fffdf;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.form-searched-movie p {
+  padding: 10px;
+  margin: 0;
+  cursor: pointer;
+  border-bottom: 1px solid #444;
+  color: #000000;
+  transition: background-color 0.3s ease;
+}
+
+.form-searched-movie p:last-child {
+  border-bottom: none;
+}
+
+.form-searched-movie p:hover {
+  background-color: #003c28;
+  color: #00ffaa;
+}
+
+
+.form-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.form-pagination button {
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #319b78;
+  color: #000000;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.form-pagination button:hover{
+  background-color: #003c28;
+}
+
+.form-pagination button:disabled {
+  background-color: #4dbf99;
+  color: #4b4b4b;
+  cursor: not-allowed;
+}
+
+.form-pagination span {
+  font-size: 1.2rem;
+  color: #ffffff;
+}
+
+
+.form-container { 
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #1b694e;
+  color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-field {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100vh;
+  align-self: center;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #00f8a5;
+  border-radius: 5px;
+  background-color: #c5ffec;
+  color: #000000;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  border-color: #00ffaa;
+  outline: none;
+}
+
+.form-poster-image {
+  display: block;
+  max-width: 40%;
+  height: auto;
+  margin: 0 auto 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+}
+
+
+.form-button {
+  padding: 15px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  background-color: #319b78;
+  color: #000000;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-button:hover {
+  background-color: #157456;
+}

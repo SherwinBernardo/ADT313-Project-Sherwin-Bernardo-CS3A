@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.login-main-container {
+display: flex;
+justify-content: center;
+padding-top: 3rem;
+align-items: center;
+height: 100vh;
+}
+
+.login-form-container {
+outline: none;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+width: 30vw;
+height: 75vh;
+border-radius: 12px;
+box-shadow: 10px 10px 5px 12px lightblue;
+}
+.login-form{
+  margin-top: 3rem;
+}
+
+.login-form-container h1{
+  font-size:xx-large;
+  font-weight: bolder;
+  text-align: center;
+ }
+
+.login-form-group {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.login-form-group input {
+  padding-left: 10px;
+  height: 40px;
+  width: 250px ;
+  border-radius: 100px;
+  font-size: medium;
+}
+
+.login-form-group label {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  width: 70px;
+  margin-right: 8px;
+  text-align: left;
+}
+.login-errors {
+  color: red;
+  font-size: 12px;
+  
+}
+.login-submit-container {
+  margin-top: 12px;
+  text-align: center;
+}
+.login-submit-container button{
+padding: 12px 48px;
+border-radius: 50px;
+color: white;
+margin-top: 1rem;
+margin-bottom: 1rem;
+cursor: pointer;
+outline: none;
+border-width: 0;
+background-color: rgb(143, 92, 92);
+font-weight: 600;
+width: 250px;
+
+}
+.register-container {
+  text-align: center;
+}
+.show-password {
+  margin-bottom: 1rem;
+  cursor: pointer;
+}

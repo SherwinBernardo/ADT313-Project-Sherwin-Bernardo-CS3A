@@ -1,0 +1,154 @@
+
+.lists-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 40px auto;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+
+}
+
+.list-create-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px;
+  background-color: #053525;
+  border-bottom: 1px solid #ccc;
+
+}
+
+
+.list-btn {
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #5bdbb0;
+  color: #000000;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.list-btn:hover {
+  background-color: #1c5f48;
+  color: #5bdbb0;
+
+}
+
+
+.list-table-container {
+  padding: 20px;
+}
+
+
+.list-movie-lists {
+  background-color: #a6ffe1 ;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.list-movie-lists th,
+.list-movie-lists td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+
+}
+
+.list-movie-lists th {
+  background-color: #319b78;
+  color: #333;
+  font-weight: bold;
+}
+
+.list-movie-lists tr:hover {
+  background-color: #69ffcd;
+  cursor: pointer;
+}
+
+
+.list-movie-lists td button {
+  padding: 8px 12px;
+  margin-right: 5px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+.list-movie-lists td button:first-child {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.list-movie-lists td button:first-child:hover {
+  background-color: #45a049;
+
+}
+
+.list-movie-lists td button:last-child {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.list-movie-lists td button:last-child:hover {
+  background-color: #e53935;
+
+}
+
+
+.list-table-container {
+  background-color: #5ab395;
+  max-height: 500px;
+  overflow-y: auto;
+
+}
+.search-input{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-left: 355px;
+    flex: 1;
+    width: 50rem;
+    height: 3rem;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #7fffd4;
+    border-radius: 10px;
+    outline: none;
+    background-color: #d4fff1;
+    color: #000000;
+}
+.search-input::placeholder{
+  color: rgb(98, 98, 98);
+}
+.search-container{
+  background-color: #5ab395;
+}
+
+@media (max-width: 768px) {
+  .list-movie-lists th,
+  .list-movie-lists td {
+    padding: 10px;
+
+  }
+
+  .list-btn {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+
+  }
+
+  .list-table-container {
+    padding: 10px;
+  }
+
+  .list-movie-lists {
+    font-size: 14px;
+
+  }
+}
