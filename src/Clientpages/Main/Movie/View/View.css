@@ -56,3 +56,47 @@
     margin-left: 10px;
     margin-bottom: 10px;
 }
+.video-preview-container{
+    margin-top: 50px;
+    /* background-color: #ffffff; */
+    padding: 20px;
+}
+.videos-grid{
+    /* background-color: #0c553a; */
+    padding: 10px;
+}
+.video-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: rgb(0, 255, 115); */
+    padding: 10px;
+    width: auto;
+    height: auto;
+}
+.Trailer-title{
+    margin-top: 15px;
+    color: white;
+    font-size: large;
+
+}
+.Trailer-title{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.Movie-poster-display{
+    height: 33rem;
+    width: auto;
+}
+
+.Movie-video-trailer{
+    border-radius: 10px;
+}
+.Movie-combined-display-main{
+    gap: 10px;
+    padding: 10px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}

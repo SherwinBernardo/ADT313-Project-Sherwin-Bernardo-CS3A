@@ -5,7 +5,6 @@ import "./View.css";
 import MovieGenre from "../../../../components/MoviesGenres/MovieGenres";
 
 
-
 function View({ setSelectedMovie }) {
   const [movie, setMovie] = useState(null);
   const { movieId } = useParams();
@@ -63,7 +62,8 @@ function View({ setSelectedMovie }) {
                 </label>
                 <label className="Release-date">
                   <small>Released date:</small>
-                  {movie.releaseDate}</label>
+                  {movie.releaseDate}
+                </label>
               </div>
             </div>
           </div>
@@ -81,17 +81,39 @@ function View({ setSelectedMovie }) {
           )}
 
           {movie.videos && movie.videos.length > 0 && (
-            <div className="video-preview">
-              <h2>Trailer</h2>
-              <iframe
-                width="560"
-                height="315"
-                src={`https://www.youtube.com/embed/${movie.videos[0]?.videoKey}`}
-                title={movie.videos[0]?.name}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
+            <div className="video-preview-container">
+              <div className="videos-grid">
+                {movie.videos.map((video, index) => (
+                  <div key={index} className="video-item">
+                    <div className="Movie-combined-display-main">
+                      <img
+                        src={movie.posterPath}
+                        alt={movie.title}
+                        className="Movie-poster-display"
+                      />
+                      <div className="Trailer-title">
+                      <iframe
+                        width="700"
+                        height="500"
+                        src={`https://www.youtube.com/embed/${video.videoKey}`}
+                        title={video.name || `Video ${index + 1}`}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        className="Movie-video-trailer"
+                      ></iframe>
+
+                      <b>
+                        {" "}
+                        <p className="Trailer-title">
+                          {video.name || `Video ${index + 1}`}
+                        </p>
+                      </b>
+                       </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 

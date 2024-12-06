@@ -7,6 +7,8 @@ const MovieVideo = () => {
 
   console.log(sqlVideo, videos);
 
+  
+
   return (
     <div className="Main-video-container">
       <div className="Current-Replace">

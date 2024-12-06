@@ -14,6 +14,7 @@ import Home from "./Clientpages/Main/Movie/Home/Home";
 import View from "./Clientpages/Main/Movie/View/View";
 import MovieContextProvider from "./context/MovieContext";
 import MovieVideo from "./components/MovieVideos/MovieVideo";
+import MoviePhotos from "./components/MoviePhotos/MoviePhotos";
 
 const router = createBrowserRouter([
   {
@@ -77,7 +78,7 @@ const router = createBrowserRouter([
               {
                 path: "/main/movies/form/:movieId/photos",
                 element: (
-                  <h1>Change this for photos CRUD functionality component.</h1>
+                  <MoviePhotos/>
                 ),
               },
               {

@@ -11,7 +11,7 @@
   height: 100vh;
 }
 .Main .container .outlet {
-  color: red;
+  color: rgb(255, 255, 255);
   flex-grow: 3;
   padding: 1rem;
   overflow-y: auto;
