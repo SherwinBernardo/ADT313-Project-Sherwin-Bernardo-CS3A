@@ -5,12 +5,9 @@ import axios from "axios";
 const MoviePhotos = () => {
   const { setSelectedPhotos, photos, sqlPhoto } = useOutletContext();
 
-  
-
   return (
     <div className="Main-photo-container">
       <div className="Current-Replace">
-
         <div className="Current-Main-Container">
           <h2>Current Photos</h2>
           <div className="photos-section">
@@ -40,7 +37,6 @@ const MoviePhotos = () => {
           </div>
         </div>
 
-        {/* Replace Photos Section */}
         <div className="Replace-Main-Container">
           <h2>Replace Photos</h2>
           <div className="photos-section">
@@ -77,5 +73,6 @@ const MoviePhotos = () => {
     </div>
   );
 };
+
 
 export default MoviePhotos;

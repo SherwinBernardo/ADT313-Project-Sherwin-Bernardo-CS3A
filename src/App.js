@@ -15,6 +15,7 @@ import View from "./Clientpages/Main/Movie/View/View";
 import MovieContextProvider from "./context/MovieContext";
 import MovieVideo from "./components/MovieVideos/MovieVideo";
 import MoviePhotos from "./components/MoviePhotos/MoviePhotos";
+import MovieCasts from "./components/MovieCasts/MovieCasts";
 
 const router = createBrowserRouter([
   {
@@ -70,9 +71,7 @@ const router = createBrowserRouter([
               {
                 path: "/main/movies/form/:movieId/cast-and-crews",
                 element: (
-                  <h1>
-                    Change this for cast & crew CRUD functionality component.
-                  </h1>
+              <MovieCasts/>
                 ),
               },
               {

@@ -67,17 +67,19 @@ function View({ setSelectedMovie }) {
               </div>
             </div>
           </div>
-          {movie.casts && movie.casts.length > 0 && (
+          {movie.casts && movie.casts.length > 0 ? (
             <div className="cast-crew">
               <h2>Cast & Crew</h2>
               <ul>
-                {movie.casts.map((cast, index) => (
-                  <li key={index} className="cast-member">
+                {movie.casts.map((cast) => (
+                  <li key={cast.id || cast.name} className="cast-member">
                     <strong>{cast.name}</strong> as {cast.character}
                   </li>
                 ))}
               </ul>
             </div>
+          ) : (
+            <p>No cast members available for this movie.</p>
           )}
 
           {movie.videos && movie.videos.length > 0 && (
@@ -92,24 +94,24 @@ function View({ setSelectedMovie }) {
                         className="Movie-poster-display"
                       />
                       <div className="Trailer-title">
-                      <iframe
-                        width="700"
-                        height="500"
-                        src={`https://www.youtube.com/embed/${video.videoKey}`}
-                        title={video.name || `Video ${index + 1}`}
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        className="Movie-video-trailer"
-                      ></iframe>
+                        <iframe
+                          width="700"
+                          height="500"
+                          src={`https://www.youtube.com/embed/${video.videoKey}`}
+                          title={video.name || `Video ${index + 1}`}
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          className="Movie-video-trailer"
+                        ></iframe>
 
-                      <b>
-                        {" "}
-                        <p className="Trailer-title">
-                          {video.name || `Video ${index + 1}`}
-                        </p>
-                      </b>
-                       </div>
+                        <b>
+                          {" "}
+                          <p className="Trailer-title">
+                            {video.name || `Video ${index + 1}`}
+                          </p>
+                        </b>
+                      </div>
                     </div>
                   </div>
                 ))}

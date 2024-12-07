@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./Form.css";
 import { Outlet } from "react-router-dom";
@@ -19,24 +19,23 @@ const Form = () => {
   const [photos, setPhotos] = useState([]);
   const [sqlPhoto, setSqlPhoto] = useState();
   const [selectedPhoto, setSelectedPhoto] = useState([]);
-  const [selectedPhotos, setSelectedPhotos] = useState([]); 
+  const [selectedPhotos, setSelectedPhotos] = useState([]);
 
-  const [casts, setCasts] = useState([]);
+  const [cast, setCast] = useState([]);
   const [sqlCast, setSqlCast] = useState();
   const [selectedCast, setSelectedCast] = useState([]);
 
   let { movieId } = useParams();
   const navigate = useNavigate();
 
-  const url = movieId ? `/movies/${movieId}` : "/movies";
-  const method = movieId ? "patch" : "post";
+
 
   const togglePhotoSelection = (photo) => {
     setSelectedPhotos((prevSelected) => {
       if (prevSelected.find((p) => p.file_path === photo.file_path)) {
-        return prevSelected.filter((p) => p.file_path !== photo.file_path); // Remove if already selected
+        return prevSelected.filter((p) => p.file_path !== photo.file_path); 
       } else {
-        return [...prevSelected, photo]; // Add to selected list
+        return [...prevSelected, photo]; 
       }
     });
   };
@@ -56,9 +55,9 @@ const Form = () => {
         const photoData = {
           movieId: movieId || movieId2,
           url: `https://image.tmdb.org/t/p/original${photo.file_path}`,
-          name: "Photo", // Example name; adjust as needed
-          photoType: "backdrop", // Assuming you're saving backdrops
-          description: "Default description", // Optional description
+          name: "Photo", 
+          photoType: "backdrop", 
+          description: "Default description", 
         };
 
         console.log("Photo Data:", photoData);
@@ -108,6 +107,50 @@ const Form = () => {
         });
     }
   }, [query, page]);
+  //////////////for casttttttttttttttttttttt
+
+   const toggleCastSelection = (actor) => {
+  setSelectedCast((prevSelectedCast) => {
+    // Check if the actor is already selected
+    if (prevSelectedCast.find((a) => a.cast_id === actor.cast_id)) {
+      // Remove the actor from the selection
+      return prevSelectedCast.filter((a) => a.cast_id !== actor.cast_id);
+    } else {
+      // Add the actor to the selection
+      return [...prevSelectedCast, actor];
+    }
+  });
+};
+
+ const handleAddCast = () => {
+  // Implement the function that saves the selected cast, e.g., making an API call or updating the state
+  alert('Selected cast has been saved!');
+};
+  const fetchCast = useCallback((movieId) => {
+    if (!movieId) return;
+
+    axios({
+      method: "get",
+      url: `https://api.themoviedb.org/3/movie/${movieId}/credits`,
+      headers: {
+        Accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhOGI5YzY1YzM2ZDk5MTVjYjY3MDgyZDRhN2JjNWUyZiIsIm5iZiI6MTczMzQ5MDkyMC44OTQsInN1YiI6IjY3NTJmOGU4NzJkMWE4YTU5YzI5YWZhNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.8-rhvtpo3t6g396lRYpIw0V0Wx5B9CBb65Mg_6TeHM4", // Replace with your token
+      },
+    })
+      .then((response) => {
+        setCast(response.data.cast || []); 
+      })
+      .catch((error) => {
+        console.error("Error fetching cast:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (movieId || selectedMovie?.id) {
+      fetchCast(movieId || selectedMovie.id);
+    }
+  }, [movieId, selectedMovie, fetchCast]);
 
   //////for photossssssssssssssssss
 
@@ -173,9 +216,9 @@ const Form = () => {
     const photoData = {
       movieId: movieId ? movieId : movieId2,
       url: `https://image.tmdb.org/t/p/original${selectedPhoto.file_path}`,
-      name: "Photo", // Example name; adjust as needed
-      photoType: "backdrop", // Assuming you're saving backdrops
-      description: "Default description", // Add this field; you can customize its value
+      name: "Photo",
+      photoType: "backdrop",
+      description: "Default description", 
     };
 
     console.log("Photo Data:", photoData);
@@ -214,6 +257,18 @@ const Form = () => {
         .catch((error) => console.log("Error fetching photos:", error));
     }
   }, [movieId]);
+
+   useEffect(() => {
+     if (movieId) {
+       axios
+         .get(`/casts/${movieId}`)
+         .then((castResponse) => {
+           setSqlCast(castResponse.data);
+           console.log(castResponse.data);
+         })
+         .catch((error) => console.log("Error fetching photos:", error));
+     }
+   }, [movieId]);
 
   useEffect(() => {
     if (selectedMovie && selectedMovie.id) {
@@ -319,6 +374,8 @@ const Form = () => {
       alert("Failed to save the movie. Please try again.");
     }
   };
+
+  
 
   useEffect(() => {
     if (movieId) {
@@ -596,7 +653,61 @@ const Form = () => {
               <p>No photos found</p>
             )}
           </div>
-          ;
+
+          <div className="cast-list">
+            <h2>Cast</h2>
+            {cast.length > 0 ? (
+              cast.slice(0, 10).map((actor) => (
+                <div key={actor.cast_id} className="cast-member">
+                  <img
+                    src={
+                      actor.profile_path
+                        ? `https://image.tmdb.org/t/p/w200${actor.profile_path}`
+                        : "https://via.placeholder.com/200x300?text=No+Image"
+                    }
+                    alt={actor.name}
+                    className="cast-photo"
+                  />
+                  <div className="cast-info">
+                    <p>
+                      <strong>{actor.name}</strong>
+                    </p>
+                    <p>as {actor.character}</p>
+                  </div>
+                  <button
+                    className={`cast-select-button ${
+                      selectedCast.find((a) => a.cast_id === actor.cast_id)
+                        ? "selected"
+                        : ""
+                    }`}
+                    onClick={() => toggleCastSelection(actor)}
+                  >
+                    {selectedCast.find((a) => a.cast_id === actor.cast_id)
+                      ? "Unselect Cast"
+                      : "Select Cast"}
+                  </button>
+                </div>
+              ))
+            ) : (
+              <p>No cast information available for this movie.</p>
+            )}
+          </div>
+
+          {selectedCast.length > 0 && (
+            <div>
+              <h3>Selected Cast</h3>
+              {selectedCast.map((actor) => (
+                <p key={actor.cast_id}>
+                  {actor.name} as {actor.character}
+                </p>
+              ))}
+              <button
+                onClick={() => handleAddCast(selectedMovie?.id || movieId)}
+              >
+                Save Selected Cast
+              </button>
+            </div>
+          )}
         </>
       )}
 
@@ -629,8 +740,19 @@ const Form = () => {
             </ul>
           </nav>
 
-          <Outlet context={{ setSelectedVideo, videos, sqlVideo }} />
-          <Outlet context={{ setSelectedPhotos, photos, sqlPhoto }} />
+          <Outlet
+            context={{
+              setSelectedVideo,
+              videos,
+              sqlVideo,
+              setSelectedPhotos,
+              photos,
+              sqlPhoto,
+              setSelectedCast,
+              cast,
+              sqlCast,
+            }}
+          />
         </div>
       )}
     </>
