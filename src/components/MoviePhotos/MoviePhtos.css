@@ -1,0 +1,116 @@
+.Main-photo-container {
+    padding: 20px;
+    color: rgb(0, 0, 0);
+}
+
+.Photos-Current-Replace {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+}
+.Photos-Current-Replace {
+    color: #026240;
+    font-weight: bold;
+}
+
+.Photos-Current-Main-Container {
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #02291d;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.Photos-Current-Main-Container h2 {
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+    color: #fff;
+}
+
+.photos-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.current-Photos-container {
+    width: 220px;
+    background-color: #2e3d30;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.Photo-preview img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.Photos-Replace-Main-Container {
+    background: linear-gradient(135deg, #023624, #026240);
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.Photos-Replace-Main-Container h2 {
+    font-size: 1.8rem;
+    color: #fff;
+}
+
+.Replace-photos-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-gap: 15px;
+    max-height: 600px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.Replace-photos-container {
+    width: 220px;
+    background-color: #02583a;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.Replace-Photo-preview img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.Replace-Photos-Select-Button {
+    margin-top: 10px;
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    background-color: #083223;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.Replace-Photos-Select-Button:hover {
+    background-color: #65a573;
+}
+
+.Replace-Photos-Select-Button:focus {
+    outline: 3px solid #4a5b47;
+}

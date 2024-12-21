@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./Form.css";
 import { Outlet } from "react-router-dom";
@@ -16,26 +16,127 @@ const Form = () => {
   const [sqlVideo, setSqlVideo] = useState();
   const [selectedVideo, setSelectedVideo] = useState([]);
 
-  const [photos, setPhotos] = useState([]);
+  const [photo, setPhoto] = useState([]);
   const [sqlPhoto, setSqlPhoto] = useState();
-  const [selectedPhoto, setSelectedPhoto] = useState([]);
   const [selectedPhotos, setSelectedPhotos] = useState([]);
 
-  const [cast, setCast] = useState([]);
+  const [casts, setCasts] = useState([]);
   const [sqlCast, setSqlCast] = useState();
   const [selectedCast, setSelectedCast] = useState([]);
 
   let { movieId } = useParams();
   const navigate = useNavigate();
 
+  const url = movieId ? `/movies/${movieId}` : "/movies";
+  const method = movieId ? "patch" : "post";
+
+  console.log("Selected Photos:", selectedPhotos); // Check if this array is populated
+  console.log("Movie ID:", movieId || movieId); // Verify that this is returning a valid movie ID
+
+  //for casttttttttttttttttttttttttttttttttt
+
+  const fetchCasts = (tmdbId) => {
+    if (!tmdbId) {
+      console.error("No TMDB ID provided to fetch casts.");
+      return;
+    }
+
+    axios
+      .get(`https://api.themoviedb.org/3/movie/${tmdbId}/credits`, {
+        headers: {
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhYzkwM2QxZmU2MmFlN2QyNjJiNmNjYTQ4M2Y5M2U3MiIsIm5iZiI6MTcyOTc1NzE5NC41NTcsInN1YiI6IjY3MWEwMDBhNWQwZGU4OTA0MmQ4ZGU5ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.FVVdB2MiqYiPT9zF-DgtzgujwBnAPijbptO9gF3ExSc",
+        },
+      })
+      .then((response) => {
+        if (response.data?.cast) {
+          setCasts(response.data.cast);
+          console.log("Fetched Casts:", response.data.cast);
+        } else {
+          setCasts([]);
+          console.warn("No cast available for the given TMDB ID.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching casts:", error);
+        setCasts([]);
+      });
+  };
+
+  const toggleCastSelection = (cast) => {
+    setSelectedCast((prevSelected) => {
+      if (prevSelected.some((c) => c.id === cast.id)) {
+        return prevSelected.filter((c) => c.id !== cast.id);
+      }
+      return [...prevSelected, cast];
+    });
+  };
+
+  const handleAddCasts = async (movieId2) => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (!accessToken) {
+      alert("Access token is missing. Please log in again.");
+      return false;
+    }
+
+    if (selectedCast.length === 0) {
+      alert(
+        "No casts selected. Please select at least one cast before saving."
+      );
+      return false;
+    }
+
+    try {
+      for (const casts of selectedCast) {
+        const castData = {
+          movieId: movieId || movieId2,
+          name: casts.name,
+          characterName: casts.character,
+          url: casts.profile_path
+            ? `https://image.tmdb.org/t/p/original${casts.profile_path}`
+            : null,
+        };
+
+        console.log("Cast Data:", castData);
+
+        await axios.post("/casts", castData, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+      }
+      console.log("Casts added successfully!");
+      alert("Casts added successfully!");
+      return true;
+    } catch (error) {
+      const errorMsg =
+        error.response?.data?.message ||
+        (error.response?.status === 422
+          ? "Validation failed. Please check the input data."
+          : "An unexpected error occurred.");
+      console.error("Error adding casts:", errorMsg);
+      alert(`Failed to add casts. ${errorMsg}`);
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    if (selectedMovie?.id) {
+      fetchCasts(selectedMovie.id);
+    }
+  }, [selectedMovie]);
+
+  //for casttttttttttttttttttttttttttttttttt
+
 
 
   const togglePhotoSelection = (photo) => {
     setSelectedPhotos((prevSelected) => {
       if (prevSelected.find((p) => p.file_path === photo.file_path)) {
-        return prevSelected.filter((p) => p.file_path !== photo.file_path); 
+        return prevSelected.filter((p) => p.file_path !== photo.file_path);
       } else {
-        return [...prevSelected, photo]; 
+        return [...prevSelected, photo];
       }
     });
   };
@@ -55,9 +156,9 @@ const Form = () => {
         const photoData = {
           movieId: movieId || movieId2,
           url: `https://image.tmdb.org/t/p/original${photo.file_path}`,
-          name: "Photo", 
-          photoType: "backdrop", 
-          description: "Default description", 
+          name: "Photo",
+          photoType: "backdrop",
+          description: "Default description",
         };
 
         console.log("Photo Data:", photoData);
@@ -72,6 +173,7 @@ const Form = () => {
         });
       }
       console.log("Photos added successfully!");
+
       alert("Photos added successfully!");
       return true;
     } catch (error) {
@@ -107,54 +209,10 @@ const Form = () => {
         });
     }
   }, [query, page]);
-  //////////////for casttttttttttttttttttttt
-
-   const toggleCastSelection = (actor) => {
-  setSelectedCast((prevSelectedCast) => {
-    // Check if the actor is already selected
-    if (prevSelectedCast.find((a) => a.cast_id === actor.cast_id)) {
-      // Remove the actor from the selection
-      return prevSelectedCast.filter((a) => a.cast_id !== actor.cast_id);
-    } else {
-      // Add the actor to the selection
-      return [...prevSelectedCast, actor];
-    }
-  });
-};
-
- const handleAddCast = () => {
-  // Implement the function that saves the selected cast, e.g., making an API call or updating the state
-  alert('Selected cast has been saved!');
-};
-  const fetchCast = useCallback((movieId) => {
-    if (!movieId) return;
-
-    axios({
-      method: "get",
-      url: `https://api.themoviedb.org/3/movie/${movieId}/credits`,
-      headers: {
-        Accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhOGI5YzY1YzM2ZDk5MTVjYjY3MDgyZDRhN2JjNWUyZiIsIm5iZiI6MTczMzQ5MDkyMC44OTQsInN1YiI6IjY3NTJmOGU4NzJkMWE4YTU5YzI5YWZhNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.8-rhvtpo3t6g396lRYpIw0V0Wx5B9CBb65Mg_6TeHM4", // Replace with your token
-      },
-    })
-      .then((response) => {
-        setCast(response.data.cast || []); 
-      })
-      .catch((error) => {
-        console.error("Error fetching cast:", error);
-      });
-  }, []);
-
-  useEffect(() => {
-    if (movieId || selectedMovie?.id) {
-      fetchCast(movieId || selectedMovie.id);
-    }
-  }, [movieId, selectedMovie, fetchCast]);
 
   //////for photossssssssssssssssss
 
-  const fetchPhotos = (tmdbId) => {
+  const fetchPhotos = async (tmdbId) => {
     if (!tmdbId) {
       console.error("No TMDB ID provided to fetch photos.");
       return;
@@ -169,18 +227,18 @@ const Form = () => {
       })
       .then((response) => {
         if (response.data && response.data.backdrops) {
-          setPhotos(
+          setPhoto(
             response.data.backdrops.length > 0 ? response.data.backdrops : []
           );
           console.log("Fetched Photos:", response.data.backdrops);
         } else {
-          setPhotos([]);
+          setPhoto([]);
           console.warn("No photos available for the given TMDB ID.");
         }
       })
       .catch((error) => {
         console.error("Error fetching photos:", error);
-        setPhotos([]);
+        setPhoto([]);
       });
   };
 
@@ -205,70 +263,29 @@ const Form = () => {
         setVideos("");
       });
   };
-  const handleAddPhoto = async (movieId2) => {
-    const accessToken = localStorage.getItem("accessToken");
+    useEffect(() => {
+      if (movieId) {
+        axios
+          .get(`/photos/${movieId}`)
+          .then((response) => {
+            setPhoto(response.data); // Assuming the response returns an array of photo objects
+          })
+          .catch((error) => console.log("Error fetching photos:", error));
+      }
+    }, [movieId]);
 
-    if (!selectedPhoto || !selectedPhoto.file_path) {
-      alert("No photo selected. Please select a photo before saving.");
-      return false;
-    }
-
-    const photoData = {
-      movieId: movieId ? movieId : movieId2,
-      url: `https://image.tmdb.org/t/p/original${selectedPhoto.file_path}`,
-      name: "Photo",
-      photoType: "backdrop",
-      description: "Default description", 
-    };
-
-    console.log("Photo Data:", photoData);
-
-    try {
-      const response = await axios({
-        method: movieId ? "patch" : "post",
-        url: movieId ? `/photos/${movieId}` : "/photos",
-        data: photoData,
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      console.log("Photo added successfully:", response.data);
-      alert("Photo added successfully!");
-      return true;
-    } catch (error) {
-      console.error("Error adding photo:", error.response || error.message);
-      alert(
-        `Failed to add photo. ${
-          error.response?.data?.message || "Please try again later."
-        }`
-      );
-      return false;
-    }
-  };
 
   useEffect(() => {
     if (movieId) {
       axios
         .get(`/photos/${movieId}`)
-        .then((photoResponse) => {
-          setSqlPhoto(photoResponse.data);
-          console.log(photoResponse.data);
+        .then((castResponse) => {
+          setSqlCast(castResponse.data);
+          console.log(castResponse.data);
         })
-        .catch((error) => console.log("Error fetching photos:", error));
+        .catch((error) => console.log("Error fetching casts:", error));
     }
   }, [movieId]);
-
-   useEffect(() => {
-     if (movieId) {
-       axios
-         .get(`/casts/${movieId}`)
-         .then((castResponse) => {
-           setSqlCast(castResponse.data);
-           console.log(castResponse.data);
-         })
-         .catch((error) => console.log("Error fetching photos:", error));
-     }
-   }, [movieId]);
 
   useEffect(() => {
     if (selectedMovie && selectedMovie.id) {
@@ -367,6 +384,11 @@ const Form = () => {
         alert("Video could not be added. Please try again.");
         return;
       }
+      const areCastsAdded = await handleAddCasts(newMovieId);
+      if (!areCastsAdded) {
+        alert("Casts could not be added. Please try again.");
+        return;
+      }
 
       navigate(`/main/movies`);
     } catch (error) {
@@ -374,8 +396,6 @@ const Form = () => {
       alert("Failed to save the movie. Please try again.");
     }
   };
-
-  
 
   useEffect(() => {
     if (movieId) {
@@ -424,6 +444,7 @@ const Form = () => {
 
   useEffect(() => {
     if (movieId) {
+      fetchCasts();
       fetchVideos();
       fetchPhotos();
     }
@@ -491,6 +512,7 @@ const Form = () => {
             <img
               className="form-poster-image"
               src={`https://image.tmdb.org/t/p/original/${selectedMovie.poster_path}`}
+              value={selectedMovie ? selectedMovie.poster_path : ""}
             />
           ) : (
             ""
@@ -572,142 +594,125 @@ const Form = () => {
 
       {!movieId && (
         <>
-          <div className="videos-Main-Container">
-            <h2 className="h2-Videos">Videos</h2>
-            <div className="Second-Video-container">
-              {videos && videos.length > 0 ? (
-                videos.map((video) => (
-                  <div className="Videos-Container" key={video.id}>
-                    <div className="Video-Title">
-                      <p>{video.name}</p>
-                      <div className="video-list">
-                        <div className="video-preview">
-                          <iframe
-                            width="280"
-                            height="158"
-                            src={`https://www.youtube.com/embed/${video.key}`}
-                            title={video.name}
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                          ></iframe>
+          <div className="Main-body">
+            <div className="videos-Main-Container">
+              <h2 className="h2-Videos">Videos</h2>
+              <div className="Second-Video-container">
+                {videos && videos.length > 0 ? (
+                  videos.map((video) => (
+                    <div className="Videos-Container" key={video.id}>
+                      <div className="Video-Title">
+                        <p>{video.name}</p>
+                        <div className="video-list">
+                          <div className="video-preview">
+                            <iframe
+                              width="280"
+                              height="158"
+                              src={`https://www.youtube.com/embed/${video.key}`}
+                              title={video.name}
+                              frameBorder="0"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                              allowFullScreen
+                            ></iframe>
+                          </div>
+                          <button
+                            className="Form-Select-Button"
+                            onClick={() => {
+                              setSelectedVideo(video);
+                              alert("Successfully selected a video!");
+                            }}
+                          >
+                            Select Video
+                          </button>
                         </div>
-                        <button
-                          className="Select-Button"
-                          onClick={() => {
-                            setSelectedVideo(video);
-                            alert("Successfully selected a video!");
-                          }}
-                        >
-                          Select Video
-                        </button>
                       </div>
                     </div>
-                  </div>
-                ))
-              ) : (
-                <p>No videos found</p>
-              )}
+                  ))
+                ) : (
+                  <p>No videos found</p>
+                )}
+              </div>
             </div>
-          </div>
-          <div className="Second-Photo-container">
-            <h1 style={{ color: "white" }}>Photos</h1>
-            {photos && photos.length > 0 ? (
-              photos.map((photo) => (
-                <div className="Photos-Container" key={photo.file_path}>
-                  <div className="Photo-Title">
-                    <div className="photo-list">
-                      <div className="photo-preview">
-                        <img
-                          width="280"
-                          height="158"
-                          src={
-                            photo.file_path
-                              ? `https://image.tmdb.org/t/p/original${photo.file_path}`
-                              : "https://via.placeholder.com/280x158?text=No+Image"
-                          }
-                          alt="Photo from movie"
-                        />
+            <div className="Second-Photo-container">
+              <h1>Photos</h1>
+              <div className="third-photo-container">
+                {photo && photo.length > 0 ? (
+                  photo.map((photo) => (
+                    <div className="Photos-Container" key={photo.file_path}>
+                      <div className="Photo-Title">
+                        <div className="photo-list">
+                          <div className="photo-preview">
+                            <img
+                              width="280"
+                              height="158"
+                              src={
+                                photo.file_path
+                                  ? `https://image.tmdb.org/t/p/original${photo.file_path}`
+                                  : "https://via.placeholder.com/280x158?text=No+Image"
+                              }
+                              alt="Photo from movie"
+                            />
+                          </div>
+                          <button
+                            className={`Form-Select-Button ${
+                              selectedPhotos.find(
+                                (p) => p.file_path === photo.file_path
+                              )
+                                ? "selected"
+                                : ""
+                            }`}
+                            onClick={() => togglePhotoSelection(photo)}
+                          >
+                            {selectedPhotos.find(
+                              (p) => p.file_path === photo.file_path
+                            )
+                              ? "Unselect Photo"
+                              : "Select Photo"}
+                          </button>
+                        </div>
                       </div>
-                      <button
-                        className={`Select-Button ${
-                          selectedPhotos.find(
-                            (p) => p.file_path === photo.file_path
-                          )
-                            ? "selected"
-                            : ""
-                        }`}
-                        onClick={() => togglePhotoSelection(photo)}
-                      >
-                        {selectedPhotos.find(
-                          (p) => p.file_path === photo.file_path
-                        )
-                          ? "Unselect Photo"
-                          : "Select Photo"}
-                      </button>
                     </div>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p>No photos found</p>
-            )}
-          </div>
-
-          <div className="cast-list">
-            <h2>Cast</h2>
-            {cast.length > 0 ? (
-              cast.slice(0, 10).map((actor) => (
-                <div key={actor.cast_id} className="cast-member">
-                  <img
-                    src={
-                      actor.profile_path
-                        ? `https://image.tmdb.org/t/p/w200${actor.profile_path}`
-                        : "https://via.placeholder.com/200x300?text=No+Image"
-                    }
-                    alt={actor.name}
-                    className="cast-photo"
-                  />
-                  <div className="cast-info">
+                  ))
+                ) : (
+                  <p>No photos found</p>
+                )}
+              </div>
+            </div>
+            <div className="form-field">
+              <b>Select Cast Members:</b>
+              <div className="cast-list">
+                {casts.map((cast) => (
+                  <div key={cast.id} className="cast-item">
+                    <img
+                      src={
+                        cast.profile_path
+                          ? `https://image.tmdb.org/t/p/w200${cast.profile_path}`
+                          : "https://via.placeholder.com/100"
+                      }
+                      alt={cast.name}
+                      className="cast-image"
+                    />
                     <p>
-                      <strong>{actor.name}</strong>
+                      {cast.name} as {cast.character}
                     </p>
-                    <p>as {actor.character}</p>
+                    <button
+                      type="button"
+                      onClick={() => toggleCastSelection(cast)}
+                      className={
+                        selectedCast.find((c) => c.id === cast.id)
+                          ? "selected-cast-button"
+                          : "cast-button"
+                      }
+                    >
+                      {selectedCast.find((c) => c.id === cast.id)
+                        ? "Deselect"
+                        : "Select"}
+                    </button>
                   </div>
-                  <button
-                    className={`cast-select-button ${
-                      selectedCast.find((a) => a.cast_id === actor.cast_id)
-                        ? "selected"
-                        : ""
-                    }`}
-                    onClick={() => toggleCastSelection(actor)}
-                  >
-                    {selectedCast.find((a) => a.cast_id === actor.cast_id)
-                      ? "Unselect Cast"
-                      : "Select Cast"}
-                  </button>
-                </div>
-              ))
-            ) : (
-              <p>No cast information available for this movie.</p>
-            )}
-          </div>
-
-          {selectedCast.length > 0 && (
-            <div>
-              <h3>Selected Cast</h3>
-              {selectedCast.map((actor) => (
-                <p key={actor.cast_id}>
-                  {actor.name} as {actor.character}
-                </p>
-              ))}
-              <button
-                onClick={() => handleAddCast(selectedMovie?.id || movieId)}
-              >
-                Save Selected Cast
-              </button>
+                ))}
+              </div>
             </div>
-          )}
+          </div>
         </>
       )}
 
@@ -746,10 +751,10 @@ const Form = () => {
               videos,
               sqlVideo,
               setSelectedPhotos,
-              photos,
+              photo,
               sqlPhoto,
               setSelectedCast,
-              cast,
+              casts,
               sqlCast,
             }}
           />

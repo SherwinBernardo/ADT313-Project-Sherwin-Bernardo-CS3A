@@ -4,7 +4,6 @@ import axios from "axios";
 import "./View.css";
 import MovieGenre from "../../../../components/MoviesGenres/MovieGenres";
 
-
 function View({ setSelectedMovie }) {
   const [movie, setMovie] = useState(null);
   const { movieId } = useParams();
@@ -71,11 +70,24 @@ function View({ setSelectedMovie }) {
             <div className="cast-crew">
               <h2>Cast & Crew</h2>
               <ul>
-                {movie.casts.map((cast) => (
-                  <li key={cast.id || cast.name} className="cast-member">
-                    <strong>{cast.name}</strong> as {cast.character}
-                  </li>
-                ))}
+                  {movie.casts.map((casts) => {
+                    console.log(casts.profile_path);
+                    return (
+                      <li key={casts.id || casts.name} className="cast-member">
+                        {casts.url ? (
+                          <img
+                            src={casts.url}
+                            alt={casts.name}
+                            className="cast-image"
+                          />
+                        ) : (
+                          <span>No Image Available</span>
+                        )}
+                        <strong>{casts.name}</strong> as{" "}
+                        <strong>{casts.characterName}</strong>
+                      </li>
+                    );
+                  })}
               </ul>
             </div>
           ) : (

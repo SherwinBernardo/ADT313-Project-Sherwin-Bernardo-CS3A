@@ -1,0 +1,129 @@
+.Main-cast-container {
+    padding: 20px;
+    color: #00ffaa;
+    color: rgb(0, 0, 0);
+}
+
+.Cast-Current-Replace {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+}
+
+.Cast-Current-Main-Container {
+    display: flex;
+
+    align-items: center;
+    flex-direction: column;
+    color: #00ffaa;
+    padding: 20px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #023624, #026240);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.Cast-Current-Main-Container p {
+    font-weight: bold;
+}
+
+.Cast-Current-Main-Container h2 {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+    color: #fff;
+}
+
+.cast-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.Cast-container {
+    width: 220px;
+    background-color: #2e3d30;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.Cast-Current-preview img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.Cast-Replace-Main-Container {
+    background: linear-gradient(135deg, #023624, #026240);
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.Cast-Replace-Main-Container h2 {
+    font-size: 1.8rem;
+    color: #fff;
+}
+
+.cast-section-replace {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 15px;
+    max-height: 600px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.Replace-cast-container {
+    width: 220px;
+    background-color: #02583a;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.Cast-preview-Replace img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.Replace-Cast-Select-Button {
+    margin-top: 10px;
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    background-color: #083223;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.Replace-Cast-Select-Button:hover {
+    background-color: #65a573;
+}
+
+.Replace-Cast-Select-Button:focus {
+    outline: 3px solid #4a5b47;
+}
+
+.Cast-Replace-Main-Container p{
+    text-align: center;
+    color: #08b87a;
+    font-weight: bold;
+
+}

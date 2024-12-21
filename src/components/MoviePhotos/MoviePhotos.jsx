@@ -1,33 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
-import axios from "axios";
+import "./MoviePhtos.css";
 
 const MoviePhotos = () => {
-  const { setSelectedPhotos, photos, sqlPhoto } = useOutletContext();
+  const { setSelectedPhotos, photo, sqlPhoto } = useOutletContext();
+
+  console.log("SQL Photo Data:", sqlPhoto);
 
   return (
     <div className="Main-photo-container">
-      <div className="Current-Replace">
-        <div className="Current-Main-Container">
+      <div className="Photos-Current-Replace">
+        <div className="Photos-Current-Main-Container">
           <h2>Current Photos</h2>
           <div className="photos-section">
-            {sqlPhoto && sqlPhoto.length > 0 ? (
+            {sqlPhoto && photo.length > 0 ? (
               sqlPhoto.map((photo) => (
-                <div className="Photos-container" key={photo.id}>
-                  <p>{photo.name}</p>
-                  <div className="Photo-list">
+                <div className="current-Photos-container" key={photo.id}>
+                  <div className="current-Photo-list">
                     <div className="Photo-preview">
                       <img
                         width="280"
                         height="158"
-                        src={
-                          photo.url ||
-                          "https://via.placeholder.com/280x158?text=No+Image"
-                        }
+                        src={`${photo.url}`}
                         alt={`Photo from movie`}
                       />
                     </div>
-              
                   </div>
                 </div>
               ))
@@ -37,14 +34,14 @@ const MoviePhotos = () => {
           </div>
         </div>
 
-        <div className="Replace-Main-Container">
+        <div className="Photos-Replace-Main-Container">
           <h2>Replace Photos</h2>
-          <div className="photos-section">
-            {photos && photos.length > 0 ? (
-              photos.map((photo) => (
+          <div className="Replace-photos-section">
+            {photo && photo.length > 0 ? (
+              photo.map((photo) => (
                 <div className="Replace-photos-container" key={photo.file_path}>
                   <div className="Photo-list">
-                    <div className="Photo-preview">
+                    <div className="Replace-Photo-preview">
                       <img
                         src={`https://image.tmdb.org/t/p/original${photo.file_path}`}
                         alt="Replace Photo"
@@ -53,7 +50,7 @@ const MoviePhotos = () => {
                       />
                     </div>
                     <button
-                      className="Select-Button"
+                      className="Replace-Photos-Select-Button"
                       onClick={() => {
                         setSelectedPhotos(photo);
                         alert("Successfully selected a photo!");
@@ -73,6 +70,5 @@ const MoviePhotos = () => {
     </div>
   );
 };
-
 
 export default MoviePhotos;

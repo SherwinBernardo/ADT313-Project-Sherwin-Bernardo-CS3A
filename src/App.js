@@ -65,7 +65,7 @@ const router = createBrowserRouter([
               {
                 path: "/main/movies/form/:movieId",
                 element: (
-                  <h1>Change this for cast & crew CRUD functionality.</h1>
+                  <MovieCasts/>
                 ),
               },
               {

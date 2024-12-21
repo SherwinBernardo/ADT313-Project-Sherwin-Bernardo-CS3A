@@ -5,18 +5,15 @@ import "./MovieVideo.css";
 const MovieVideo = () => {
   const { setSelectedVideo, videos, sqlVideo } = useOutletContext();
 
-  console.log(sqlVideo, videos);
-
-  
 
   return (
     <div className="Main-video-container">
-      <div className="Current-Replace">
-        <div className="Current-Main-Container">
+      <div className="Video-Current-Replace">
+        <div className="Current-Video-Main-Container">
           <div>
             <h2>Current Video</h2>
           </div>
-          <div className="the">
+          <div className="Video-View-Container">
             {sqlVideo && sqlVideo.length > 0 ? (
               sqlVideo.map((video) => (
                 <div className="Videos-container" key={video.id}>
@@ -42,15 +39,15 @@ const MovieVideo = () => {
           </div>
         </div>
 
-        <div className="Replace-Main-Container">
+        <div className="Video-Replace-Main-Container">
           <div>
             <h2>Replace Video</h2>
           </div>
-          <div className="heck">
+          <div className="Replace-Video-View-Container">
             {videos && videos.length > 0 ? (
               videos.map((video) => (
                 <div className="Replace-videos-container" key={video.id}>
-                  <div className="what">
+                  <div className="Replace-videos-container-2nd">
                     <p>{video.name}</p>
                     <div className="Replace-video-list">
                       <div className="Replace-video-preview">
@@ -64,7 +61,8 @@ const MovieVideo = () => {
                           allowFullScreen
                         ></iframe>
                       </div>
-                      <button className="Select-Button"
+                      <button
+                        className="Video-Replace-Select-Button"
                         onClick={() => {
                           setSelectedVideo(video);
                           console.log(video);

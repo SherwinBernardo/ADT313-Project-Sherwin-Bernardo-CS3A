@@ -1,84 +1,112 @@
-.Main-video-container{
-    padding: 10px;
-    color: rgb(0, 0, 0);
-}
-.Current-Replace{
-    padding: 10px;
-}
-.Current-Main-Container{
-    color:#00ffaa ;
-
-    padding: 10px;
-    margin-bottom: 10px;
-}
-.Replace-Main-Container{
+.Main-video-container {
+    padding: 20px;
     color: #00ffaa;
-    background: -webkit-linear-gradient(#023624, #026240);
+    font-weight: bold;
+}
+
+.Video-Current-Replace {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+}
+
+.Current-Video-Main-Container {
+    color: #00ffaa;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #02291d;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.Current-Video-Main-Container h2 {
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+    color: #fff;
+}
+
+.Video-View-Container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.Videos-container {
+    width: 280px;
+    background-color: #2e3d30;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.Video-preview iframe {
+    max-width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.Video-Replace-Main-Container {
+    background: linear-gradient(135deg, #023624, #026240);
     padding: 20px;
     border-radius: 10px;
     display: flex;
-    justify-content: center;
-    flex-direction: column;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-.Videos-container{
-
-padding: 10px;
-}
-
-.Video-preview{
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-
-}
-.Replace-video-list{
-
-    display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.heck {
-    background-color: #02583a;
-    padding: 10px;
+.Video-Replace-Main-Container h2 {
+    font-size: 1.8rem;
+    color: #fff;
+}
+
+.Replace-Video-View-Container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 15px;
     max-height: 600px;
     overflow-y: auto;
-    border-radius: 8px;
+    width: 100%;
 }
-.what{
-    color: #003926;
-    outline: 3px solid #6bb79d;
-    border-radius: 10px;
-    align-items: center;
-    flex-direction: column;
-    display: flex;
-    padding: 10px;
-    height: auto;
-    width: 300px;
-    background-color: transparent;
-    margin-bottom: 10px;
 
-}
-.the{
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    width: auto;
-}
-.Select-Button{
-    margin: 5px;
+.Replace-videos-container {
+    width: 280px;
+    background-color: #02583a;
     padding: 15px;
-    font-size: 1.2rem;
-    font-weight:600;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.Replace-video-preview iframe {
+    max-width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.Video-Replace-Select-Button {
+    margin-top: 10px;
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
     border: none;
     border-radius: 5px;
-    background-color: #01573a;
+    background-color: #083223;
     color: #ffffff;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.Video-Replace-Select-Button:hover {
+    background-color: #65a573;
+}
+
+.Video-Replace-Select-Button:focus {
+    outline: 3px solid #4a5b47;
 }
